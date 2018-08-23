@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\forms\FeedbackForm;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -125,5 +126,30 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+	/**
+	 * @return string
+	 * @throws \yii\base\InvalidConfigException
+	 */
+	public function actionFeedback()
+	{
+		$request = \Yii::$app->getRequest();
+		$model = new FeedbackForm();
+
+		if ($model->load($request->getBodyParams()) && $model->validate()) {
+			\Yii::$app->mailer->compose()
+				->setFrom('admin@localhost')
+				->setTo('foobar@localhost')
+				->setSubject('Foo Test Mail')
+				->setTextBody('Hello, World')
+				->send();
+
+			return $this->redirect(['site/feedback']);
+		}
+
+		return $this->render('feedback', [
+			'model' => $model,
+		]);
     }
 }
