@@ -8,6 +8,7 @@ use app\models\search\NoteSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
 
 /**
  * NoteController implements the CRUD actions for Note model.
@@ -94,6 +95,23 @@ class NoteController extends Controller
             'model' => $model,
         ]);
     }
+
+	/**
+	 * Вывод модели в виде json объекта
+	 *
+	 * @param int $id
+	 *
+	 * @return array
+	 * @throws NotFoundHttpException
+	 */
+	public function actionJson(int $id): array
+	{
+		\Yii::$app->getResponse()->format = Response::FORMAT_JSON;
+
+		$note = $this->findModel($id);
+
+		return $note->toArray();
+	}
 
     /**
      * Deletes an existing Note model.

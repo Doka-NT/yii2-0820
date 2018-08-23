@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use app\models\Note;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\NoteSearch */
@@ -28,6 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'name',
             'text',
+			[
+				'format' => 'raw',
+				'value' => function (Note $model) {
+    				return Html::a('JSON', ['note/json', 'id' => $model->id]);
+				}
+			],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
