@@ -2,7 +2,10 @@
 
 namespace app\models;
 
+use app\models\query\NoteQuery;
 use Yii;
+use yii\db\ActiveQuery;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "note".
@@ -10,10 +13,17 @@ use Yii;
  * @property int $id ID
  * @property string $name Название
  * @property string $text Содержание
+ * @property int $author_id
+ * @property User $author
  */
-class Note extends \yii\db\ActiveRecord
+class Note extends ActiveRecord
 {
-    /**
+	public static function find(): NoteQuery
+	{
+		return new NoteQuery(static::class);
+	}
+
+	/**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -42,5 +52,13 @@ class Note extends \yii\db\ActiveRecord
             'name' => 'Название',
             'text' => 'Содержание',
         ];
+    }
+
+	/**
+	 * @return ActiveQuery
+	 */
+	public function getAuthor(): ActiveQuery
+	{
+		return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 }
