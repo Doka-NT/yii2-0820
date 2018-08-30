@@ -1,8 +1,8 @@
 <?php
 
-use yii\helpers\Html;
+use app\objects\NoteAccessChecker;
 use yii\grid\GridView;
-use app\models\Note;
+use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\search\NoteSearch */
@@ -10,6 +10,11 @@ use app\models\Note;
 
 $this->title = 'Notes';
 $this->params['breadcrumbs'][] = $this->title;
+
+$isAllowedToWriteCallback = function (app\models\Note $note) {
+	return (new \app\objects\NoteAccessChecker())->isAllowedToWrite($note);
+};
+
 ?>
 <div class="note-index">
 
@@ -24,19 +29,39 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'name',
-            'text',
+			['class' => \yii\grid\SerialColumn::class],
+			'name',
+			'author.username',
 			[
-				'format' => 'raw',
-				'value' => function (Note $model) {
-    				return Html::a('JSON', ['note/json', 'id' => $model->id]);
-				}
+				'attribute' => 'created_at',
+				'format' => ['date', 'php:d.m.Y'],
 			],
-
-            ['class' => 'yii\grid\ActionColumn'],
+			[
+				'attribute' => 'updated_at',
+				'format' => ['date', 'php:d.m.Y H:i:s'],
+			],
+			//            ['class' => 'yii\grid\SerialColumn'],
+			//
+			//            'id',
+			//            'name',
+			//            'text',
+			//			[
+			//				'format' => 'raw',
+			//				'value' => function (Note $model) {
+			//    				return Html::a('JSON', ['note/json', 'id' => $model->id]);
+			//				}
+			//			],
+			//
+			[
+				'class' => \yii\grid\ActionColumn::class,
+				'visibleButtons' => [
+					'view' => function (\app\models\Note $model) {
+						return (new NoteAccessChecker())->isAllowedToRead($model);
+					},
+					'update' => $isAllowedToWriteCallback,
+					'delete' => $isAllowedToWriteCallback,
+				],
+			],
         ],
     ]); ?>
 </div>

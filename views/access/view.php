@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\Note */
+/* @var $model app\models\Access */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Notes', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Accesses', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="note-view">
+<div class="access-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,13 +29,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'id',
-            'name',
-            'text:html',
-			[
-				'attribute' => 'created_at',
-				'format' => ['date', 'php:d.m.Y'],
-				'label' => 'Дата создания',
-			],
+            'note_id',
+            'user_id',
         ],
     ]) ?>
 

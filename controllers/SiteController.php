@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\forms\FeedbackForm;
+use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -62,7 +63,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-		\Yii::$app->db->createCommand('SELECT 1')->execute();
         return $this->render('index');
     }
 

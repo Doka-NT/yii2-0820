@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 use yii\helpers\BaseArrayHelper;
 
@@ -11,6 +12,7 @@ use yii\helpers\BaseArrayHelper;
  * @property string $auth_key
  * @property string $access_token
  * @property string $password
+ * @property Note[] $notes
  */
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
@@ -118,5 +120,13 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     public function validatePassword($password)
     {
 		return \password_verify($password, $this->password);
+    }
+
+	/**
+	 * @return ActiveQuery
+	 */
+	public function getNotes(): ActiveQuery
+	{
+		return $this->hasMany(Note::class, ['author_id' => 'id'])->inverseOf('author');
     }
 }

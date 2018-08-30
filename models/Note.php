@@ -15,6 +15,8 @@ use yii\db\ActiveRecord;
  * @property string $text Содержание
  * @property int $author_id
  * @property User $author
+ * @property string $created_at
+ * @property string $updated_at
  */
 class Note extends ActiveRecord
 {
