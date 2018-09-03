@@ -12,7 +12,7 @@ use Yii;
  * @property int $user_id
  *
  * @property Note $note
- * @property Note $user
+ * @property User $user
  */
 class Access extends \yii\db\ActiveRecord
 {
@@ -54,7 +54,7 @@ class Access extends \yii\db\ActiveRecord
      */
     public function getNote()
     {
-        return $this->hasOne(Note::className(), ['id' => 'note_id']);
+        return $this->hasOne(Note::class, ['id' => 'note_id']);
     }
 
     /**
@@ -62,7 +62,7 @@ class Access extends \yii\db\ActiveRecord
      */
     public function getUser()
     {
-        return $this->hasOne(Note::className(), ['id' => 'user_id']);
+        return $this->hasOne(User::class, ['id' => 'user_id']);
     }
 
     /**

@@ -63,4 +63,12 @@ class Note extends ActiveRecord
 	{
 		return $this->hasOne(User::class, ['id' => 'author_id']);
     }
+
+    /**
+     * @return ActiveQuery
+     */
+    public function getAccess(): ActiveQuery
+    {
+        return $this->hasMany(Access::class, ['note_id' => 'id']);
+    }
 }

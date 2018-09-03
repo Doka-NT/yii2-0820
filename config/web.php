@@ -9,6 +9,7 @@ $config = [
     'basePath' => dirname(__DIR__),
 	'name' => 'Сервис заметок',
     'bootstrap' => ['log'],
+    'defaultRoute' => 'note/index',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
