@@ -45,7 +45,7 @@ class NoteController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-			'viewModel' => $viewModel,
+            'viewModel' => $viewModel,
         ]);
     }
 
@@ -100,22 +100,22 @@ class NoteController extends Controller
         ]);
     }
 
-	/**
-	 * Вывод модели в виде json объекта
-	 *
-	 * @param int $id
-	 *
-	 * @return array
-	 * @throws NotFoundHttpException
-	 */
-	public function actionJson(int $id): array
-	{
-		\Yii::$app->getResponse()->format = Response::FORMAT_JSON;
+    /**
+     * Вывод модели в виде json объекта
+     *
+     * @param int $id
+     *
+     * @return array
+     * @throws NotFoundHttpException
+     */
+    public function actionJson(int $id): array
+    {
+        \Yii::$app->getResponse()->format = Response::FORMAT_JSON;
 
-		$note = $this->findModel($id);
+        $note = $this->findModel($id);
 
-		return $note->toArray();
-	}
+        return $note->toArray();
+    }
 
     /**
      * Deletes an existing Note model.

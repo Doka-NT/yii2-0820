@@ -73,7 +73,7 @@ class AccessController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-			'viewModel' => new AccessUpdateView(),
+            'viewModel' => new AccessUpdateView(),
         ]);
     }
 
@@ -94,8 +94,8 @@ class AccessController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-			'viewModel' => new AccessUpdateView(),
-		]);
+            'viewModel' => new AccessUpdateView(),
+        ]);
     }
 
     /**

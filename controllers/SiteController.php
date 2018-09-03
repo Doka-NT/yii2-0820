@@ -128,28 +128,28 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-	/**
-	 * @return string
-	 * @throws \yii\base\InvalidConfigException
-	 */
-	public function actionFeedback()
-	{
-		$request = \Yii::$app->getRequest();
-		$model = new FeedbackForm();
+    /**
+     * @return string
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function actionFeedback()
+    {
+        $request = \Yii::$app->getRequest();
+        $model = new FeedbackForm();
 
-		if ($model->load($request->getBodyParams()) && $model->validate()) {
-			\Yii::$app->mailer->compose()
-				->setFrom('admin@localhost')
-				->setTo('foobar@localhost')
-				->setSubject('Foo Test Mail')
-				->setTextBody('Hello, World')
-				->send();
+        if ($model->load($request->getBodyParams()) && $model->validate()) {
+            \Yii::$app->mailer->compose()
+                ->setFrom('admin@localhost')
+                ->setTo('foobar@localhost')
+                ->setSubject('Foo Test Mail')
+                ->setTextBody('Hello, World')
+                ->send();
 
-			return $this->redirect(['site/feedback']);
-		}
+            return $this->redirect(['site/feedback']);
+        }
 
-		return $this->render('feedback', [
-			'model' => $model,
-		]);
+        return $this->render('feedback', [
+            'model' => $model,
+        ]);
     }
 }
