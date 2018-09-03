@@ -27,13 +27,13 @@ class NoteQuery extends ActiveQuery
         return $this;
     }
 
-	/**
-	 * @return self
-	 */
-	public function orderByName(): self
-	{
-		$this->orderBy(['name' => \SORT_ASC]);
+    /**
+     * @return self
+     */
+    public function orderByName(): self
+    {
+        $this->orderBy(['name' => \SORT_ASC]);
 
-		return $this;
-	}
+        return $this;
+    }
 }

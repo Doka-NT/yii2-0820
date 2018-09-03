@@ -13,7 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="access-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php // echo $this->render('_search', ['model' => $searchModel]);?>
 
     <p>
         <?= Html::a('Create Access', ['create'], ['class' => 'btn btn-success']) ?>
@@ -37,7 +37,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Пользователь',
                 'format' => 'raw',
                 'value' => function (\app\models\Access $model) {
-
                     return Html::a($model->user->username, ['user/view', 'id' => $model->user_id]);
                 }
             ],

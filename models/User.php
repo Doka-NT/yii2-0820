@@ -16,31 +16,31 @@ use yii\helpers\BaseArrayHelper;
  */
 class User extends ActiveRecord implements \yii\web\IdentityInterface
 {
-	public static function tableName(): string
-	{
-		return 'user';
-	}
+    public static function tableName(): string
+    {
+        return 'user';
+    }
 
-	/**
-	 * @inheritdoc
-	 */
-	public function rules(): array
-	{
-		return BaseArrayHelper::merge(
-			[
-				[['username', 'password'], 'string'],
-				[['username', 'password'], 'required'],
-			],
-			parent::rules()
-		);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function rules(): array
+    {
+        return BaseArrayHelper::merge(
+            [
+                [['username', 'password'], 'string'],
+                [['username', 'password'], 'required'],
+            ],
+            parent::rules()
+        );
+    }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public static function findIdentity($id)
     {
-		return self::findOne(['id' => $id]);
+        return self::findOne(['id' => $id]);
     }
 
     /**
@@ -48,7 +48,7 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-		return self::findOne(['access_token' => $token]);
+        return self::findOne(['access_token' => $token]);
     }
 
     /**
@@ -59,35 +59,35 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-		return self::findOne(['username' => $username]);
-	}
+        return self::findOne(['username' => $username]);
+    }
 
-	/**
-	 * @inheritdoc
-	 * @throws \yii\base\Exception
-	 */
-	public function beforeSave($insert): bool
-	{
-		if (!parent::beforeSave($insert)) {
-			return false;
-		}
+    /**
+     * @inheritdoc
+     * @throws \yii\base\Exception
+     */
+    public function beforeSave($insert): bool
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
 
-		if ($this->isAttributeChanged('password')) {
-			$this->password = \password_hash($this->password, \PASSWORD_BCRYPT);
-		}
+        if ($this->isAttributeChanged('password')) {
+            $this->password = \password_hash($this->password, \PASSWORD_BCRYPT);
+        }
 
-		if (!$this->auth_key) {
-			$this->auth_key = \Yii::$app->security->generateRandomString();
-		}
+        if (!$this->auth_key) {
+            $this->auth_key = \Yii::$app->security->generateRandomString();
+        }
 
-		if (!$this->access_token) {
-			$this->access_token = \Yii::$app->security->generateRandomString();
-		}
+        if (!$this->access_token) {
+            $this->access_token = \Yii::$app->security->generateRandomString();
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public function getId()
@@ -119,14 +119,14 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-		return \password_verify($password, $this->password);
+        return \password_verify($password, $this->password);
     }
 
-	/**
-	 * @return ActiveQuery
-	 */
-	public function getNotes(): ActiveQuery
-	{
-		return $this->hasMany(Note::class, ['author_id' => 'id'])->inverseOf('author');
+    /**
+     * @return ActiveQuery
+     */
+    public function getNotes(): ActiveQuery
+    {
+        return $this->hasMany(Note::class, ['author_id' => 'id'])->inverseOf('author');
     }
 }

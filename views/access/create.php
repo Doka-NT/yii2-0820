@@ -3,7 +3,6 @@
 use app\objects\viewModels\AccessUpdateView;
 use yii\helpers\Html;
 
-
 /* @var $this yii\web\View */
 /* @var $model app\models\Access */
 /* @var $viewModel AccessUpdateView */
@@ -18,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
-		'viewModel' => $viewModel,
-	]) ?>
+        'viewModel' => $viewModel,
+    ]) ?>
 
 </div>

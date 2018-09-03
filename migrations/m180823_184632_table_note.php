@@ -12,11 +12,11 @@ class m180823_184632_table_note extends Migration
      */
     public function safeUp()
     {
-		$this->createTable('note', [
-			'id' => $this->primaryKey()->comment('ID'),
-			'name' => $this->string()->notNull()->comment('Название'),
-			'text' => $this->string()->comment('Содержание'),
-		]);
+        $this->createTable('note', [
+            'id' => $this->primaryKey()->comment('ID'),
+            'name' => $this->string()->notNull()->comment('Название'),
+            'text' => $this->string()->comment('Содержание'),
+        ]);
     }
 
     /**
@@ -24,7 +24,7 @@ class m180823_184632_table_note extends Migration
      */
     public function safeDown()
     {
-		$this->dropTable('note');
+        $this->dropTable('note');
     }
 
     /*

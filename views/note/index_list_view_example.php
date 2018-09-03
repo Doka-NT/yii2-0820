@@ -8,6 +8,6 @@ use yii\widgets\ListView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 echo ListView::widget([
-	'dataProvider' => $dataProvider,
-	'itemView' => '_item',
+    'dataProvider' => $dataProvider,
+    'itemView' => '_item',
 ]);

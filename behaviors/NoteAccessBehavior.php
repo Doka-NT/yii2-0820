@@ -3,7 +3,6 @@
 
 namespace app\behaviors;
 
-
 use app\models\Note;
 use app\objects\NoteAccessChecker;
 use yii\filters\AccessControl;

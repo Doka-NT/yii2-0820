@@ -5,9 +5,9 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
-	'language' => 'ru-RU',
+    'language' => 'ru-RU',
     'basePath' => dirname(__DIR__),
-	'name' => 'Сервис заметок',
+    'name' => 'Сервис заметок',
     'bootstrap' => ['log'],
     'defaultRoute' => 'note/index',
     'aliases' => [
@@ -50,7 +50,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-            	'<controller>/<action>/<id:\d+>' => '<controller>/<action>',
+                '<controller>/<action>/<id:\d+>' => '<controller>/<action>',
             ],
         ],
     ],

@@ -20,12 +20,12 @@ use yii\db\ActiveRecord;
  */
 class Note extends ActiveRecord
 {
-	public static function find(): NoteQuery
-	{
-		return new NoteQuery(static::class);
-	}
+    public static function find(): NoteQuery
+    {
+        return new NoteQuery(static::class);
+    }
 
-	/**
+    /**
      * {@inheritdoc}
      */
     public static function tableName()
@@ -56,12 +56,12 @@ class Note extends ActiveRecord
         ];
     }
 
-	/**
-	 * @return ActiveQuery
-	 */
-	public function getAuthor(): ActiveQuery
-	{
-		return $this->hasOne(User::class, ['id' => 'author_id']);
+    /**
+     * @return ActiveQuery
+     */
+    public function getAuthor(): ActiveQuery
+    {
+        return $this->hasOne(User::class, ['id' => 'author_id']);
     }
 
     /**
