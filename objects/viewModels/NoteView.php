@@ -4,6 +4,7 @@ namespace app\objects\viewModels;
 
 use app\models\Note;
 use app\objects\NoteAccessChecker;
+use yii\caching\DbDependency;
 use yii\helpers\Html;
 
 class NoteView
@@ -35,5 +36,19 @@ class NoteView
     public function getUserLink(Note $model): string
     {
         return Html::a($model->author->username, ['user/view', 'id' => $model->author_id]);
+    }
+
+    /**
+     * @return array
+     */
+    public function getCacheParams(): array
+    {
+        $dependency = new DbDependency();
+        $dependency->sql = 'SELECT COUNT(id) FROM note';
+
+        return [
+            'duration' => 0,
+            'dependency' => $dependency
+        ];
     }
 }

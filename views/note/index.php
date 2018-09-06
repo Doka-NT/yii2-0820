@@ -28,49 +28,40 @@ $isAllowedToWriteCallback = function (app\models\Note $note) {
         <?= Html::a('Create Note', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => \yii\grid\SerialColumn::class],
-            'name',
-            [
-                'label' => "Автор",
-                'format' => 'raw',
-                'value' => function (Note $model) use ($viewModel) {
-                    return $viewModel->getUserLink($model);
-                }
-            ],
-            [
-                'attribute' => 'created_at',
-                'format' => ['date', 'php:d.m.Y'],
-            ],
-            [
-                'attribute' => 'updated_at',
-                'format' => ['date', 'php:d.m.Y H:i:s'],
-            ],
-            //            ['class' => 'yii\grid\SerialColumn'],
-            //
-            //            'id',
-            //            'name',
-            //            'text',
-            //			[
-            //				'format' => 'raw',
-            //				'value' => function (Note $model) {
-            //    				return Html::a('JSON', ['note/json', 'id' => $model->id]);
-            //				}
-            //			],
-            //
-            [
-                'class' => \yii\grid\ActionColumn::class,
-                'visibleButtons' => [
-                    'view' => function (\app\models\Note $model) {
-                        return (new NoteAccessChecker())->isAllowedToRead($model);
-                    },
-                    'update' => $isAllowedToWriteCallback,
-                    'delete' => $isAllowedToWriteCallback,
+    <?php if ($this->beginCache('view_note_index', $viewModel->getCacheParams())):?>
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'columns' => [
+                ['class' => \yii\grid\SerialColumn::class],
+                'name',
+                [
+                    'label' => "Автор",
+                    'format' => 'raw',
+                    'value' => function (Note $model) use ($viewModel) {
+                        return $viewModel->getUserLink($model);
+                    }
+                ],
+                [
+                    'attribute' => 'created_at',
+                    'format' => ['date', 'php:d.m.Y'],
+                ],
+                [
+                    'attribute' => 'updated_at',
+                    'format' => ['date', 'php:d.m.Y H:i:s'],
+                ],
+                [
+                    'class' => \yii\grid\ActionColumn::class,
+                    'visibleButtons' => [
+                        'view' => function (\app\models\Note $model) {
+                            return (new NoteAccessChecker())->isAllowedToRead($model);
+                        },
+                        'update' => $isAllowedToWriteCallback,
+                        'delete' => $isAllowedToWriteCallback,
+                    ],
                 ],
             ],
-        ],
-    ]); ?>
+        ]); ?>
+    <?php $this->endCache();?>
+    <?php endif;?>
 </div>

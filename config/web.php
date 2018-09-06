@@ -1,7 +1,10 @@
 <?php
 
+use yii\redis\Cache;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$redisConf = require __DIR__ . '/redis.php';
 
 $config = [
     'id' => 'basic',
@@ -19,8 +22,9 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'rkAq785k_udLzernl9FwFAucYQUTybIh',
         ],
+        'redis' => $redisConf,
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => Cache::class,
         ],
         'user' => [
             'identityClass' => 'app\models\User',

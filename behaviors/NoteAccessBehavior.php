@@ -19,6 +19,9 @@ class NoteAccessBehavior extends AccessControl
         $id = \Yii::$app->getRequest()->get('id', 0);
 
         $model = $this->findModel($id);
+        if (!$model) {
+            return true;
+        }
 
         $checker = new NoteAccessChecker();
 
@@ -39,10 +42,6 @@ class NoteAccessBehavior extends AccessControl
      */
     protected function findModel($id)
     {
-        if (($model = Note::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException('The requested page does not exist.');
+        return $model = Note::findOne($id);
     }
 }

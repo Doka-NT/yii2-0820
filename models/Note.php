@@ -45,6 +45,22 @@ class Note extends ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function beforeSave($insert)
+    {
+        if (!parent::beforeSave($insert)) {
+            return false;
+        }
+
+        if (!$this->author_id) {
+            $this->author_id = \Yii::$app->user->getId();
+        }
+
+        return true;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function attributeLabels()

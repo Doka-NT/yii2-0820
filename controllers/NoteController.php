@@ -3,16 +3,17 @@
 namespace app\controllers;
 
 use app\behaviors\NoteAccessBehavior;
+use app\models\Note;
+use app\models\search\NoteSearch;
 use app\objects\NoteAccessChecker;
 use app\objects\viewModels\NoteView;
 use Yii;
-use app\models\Note;
-use app\models\search\NoteSearch;
 use yii\filters\AccessControl;
+use yii\filters\HttpCache;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 use yii\web\Response;
 
 /**
@@ -41,11 +42,21 @@ class NoteController extends Controller
             ],
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['index'],
+                'only' => ['index', 'create', 'update'],
                 'rules' => [
                     ['allow' => true, 'roles' => ['@']],
                 ],
             ],
+            'httpCache' => [
+                'class' => HttpCache::class,
+                'only' => ['view'],
+                'lastModified' => function () {
+                    $id = \Yii::$app->request->get('id');
+                    $model = $this->findModel($id);
+
+                    return $model ? \strtotime($model->updated_at) : 0;
+                }
+            ]
         ];
     }
 

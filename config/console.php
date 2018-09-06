@@ -1,7 +1,10 @@
 <?php
 
+use yii\redis\Cache;
+
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$redisConf = require __DIR__ . '/redis.php';
 
 $config = [
     'id' => 'basic-console',
@@ -13,8 +16,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'components' => [
+        'redis' => $redisConf,
         'cache' => [
-            'class' => 'yii\caching\FileCache',
+            'class' => Cache::class,
         ],
         'log' => [
             'targets' => [
