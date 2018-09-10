@@ -41,6 +41,9 @@ class NoteSearch extends Note
     public function search($params)
     {
         $query = Note::find();
+
+        $query->cache(3600);
+
         $query->forCurrentUser();
 
         // add conditions that should always apply here

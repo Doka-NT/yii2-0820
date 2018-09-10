@@ -6,7 +6,6 @@ use yii\db\ActiveQuery;
 
 class NoteQuery extends ActiveQuery
 {
-
     /**
      * Фильтрует заметки доступные текущему пользователю
      *

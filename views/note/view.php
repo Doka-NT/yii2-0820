@@ -29,18 +29,20 @@ $this->params['breadcrumbs'][] = $this->title;
         </p>
     <?php endif;?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'text:html',
-            [
-                'attribute' => 'created_at',
-                'format' => ['date', 'php:d.m.Y'],
-                'label' => 'Дата создания',
+    <?php if ($this->beginCache('foobar', ['duration' => 60])):?>
+        <?= DetailView::widget([
+            'model' => $model,
+            'attributes' => [
+                'id',
+                'name',
+                'text:html',
+                [
+                    'attribute' => 'created_at',
+                    'format' => ['date', 'php:d.m.Y'],
+                    'label' => 'Дата создания',
+                ],
             ],
-        ],
-    ]) ?>
-
+        ]) ?>
+        <?php $this->endCache();?>
+    <?php endif;?>
 </div>
