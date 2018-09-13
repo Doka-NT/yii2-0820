@@ -1,0 +1,6 @@
+# Очистка логов входа раз в день
+* * * * * php /app/yii log-rotate/access > /var/log/log-rotate-access.log
+
+# Очистка кеша каждые пол часа
+*/30 * * * * php /app/yii cache/flush-all > /var/log/cache-flush-all.log
+
